@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundotela"
+    tools:context=".OperacaoFinanceira">
+
+    <Button
+        android:id="@+id/btnDebito"
+
+        android:layout_width="260dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="260dp"
+
+        android:layout_marginEnd="83dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/buttonshape"
+
+        android:gravity="center"
+        android:onClick="detalheDeb"
+        android:src="@drawable/buttonshape"
+        android:text="Débito"
+
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:backgroundTint="@color/dark_pink"
+        app:layout_constraintBottom_toTopOf="@+id/btnCredito"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnCredito"
+
+        android:layout_width="260dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="380dp"
+
+        android:layout_marginEnd="83dp"
+        android:layout_marginBottom="261dp"
+
+        android:background="@drawable/buttonshape"
+        android:gravity="center"
+        android:onClick="detalheCre"
+        android:src="@drawable/buttonshape"
+
+        android:text="Crédito"
+        android:textColor="#FFFFFF"
+
+        android:textSize="30sp"
+        app:backgroundTint="@color/dark_pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
