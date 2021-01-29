@@ -39,4 +39,14 @@ public class CadastroUser implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    @Override
+    public String toString() {
+        return "CadastroUser{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
+    }
 }

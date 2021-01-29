@@ -1,6 +1,7 @@
 package com.example.finapp;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -30,6 +31,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+
+    }
+
+    public  boolean checkusername(String usuario, String senha){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from Usuario where usuario = ? and senha = ?", new String[]{usuario,senha});
+        if(cursor.getCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
 
     }
 }

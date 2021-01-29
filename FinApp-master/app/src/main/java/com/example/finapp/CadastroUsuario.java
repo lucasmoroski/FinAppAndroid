@@ -1,5 +1,6 @@
 package com.example.finapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,7 +39,13 @@ public class CadastroUsuario extends AppCompatActivity {
                 c.setUsuario(usuario.getText().toString());
                 c.setSenha(senha.getText().toString());
                 long id = dao.Inserir(c);
-                Toast.makeText(CadastroUsuario.this, "Usuario Cadastrado Com Sucesso!! id:" + id, Toast.LENGTH_SHORT).show();
+                if(id > 0){
+                Toast.makeText(CadastroUsuario.this, "Usuario Cadastrado Com Sucesso!! ", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), Login.class);
+                startActivity(i);
+                } else {
+                    Toast.makeText(CadastroUsuario.this, "Usuario Não Cadastrado" , Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
