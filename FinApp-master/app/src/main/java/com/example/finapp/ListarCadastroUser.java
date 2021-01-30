@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.finapp.DAO.UsuarioDAO;
+import com.example.finapp.Model.CadastroUser;
+
 import java.util.ArrayList;
 import java.util.List;
 

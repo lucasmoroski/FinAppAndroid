@@ -7,10 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.net.PasswordAuthentication;
+import com.example.finapp.DAO.UsuarioDAO;
+import com.example.finapp.Model.CadastroUser;
 
 public class CadastroUsuario extends AppCompatActivity {
 
