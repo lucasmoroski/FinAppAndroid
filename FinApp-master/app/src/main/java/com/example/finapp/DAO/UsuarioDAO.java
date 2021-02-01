@@ -15,7 +15,6 @@ public class UsuarioDAO {
     private DBHelper dbHelper;
     private SQLiteDatabase bd;
 
-
     public UsuarioDAO (Context context){
         dbHelper = new DBHelper(context);
         bd = dbHelper.getWritableDatabase();

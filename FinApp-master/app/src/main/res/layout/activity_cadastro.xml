@@ -88,7 +88,7 @@
         android:background="@drawable/buttonshape"
 
         android:gravity="center"
-        android:onClick="selecionarCadastro"
+        android:onClick="cadastrar"
         android:src="@drawable/buttonshape"
         android:text="CRIAR"
 

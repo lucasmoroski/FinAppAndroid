@@ -16,10 +16,13 @@ import java.util.List;
 
 public class CadastroopDAO {
 
-    private Context context;
-    DBHelper db = new DBHelper(context);
+    private SQLiteDatabase Ler;
+    private SQLiteDatabase mostrar;
 
     public CadastroopDAO(Context applicationContext) {
+        DBHelper db = new DBHelper(applicationContext);
+        Ler = db.getReadableDatabase();
+        mostrar = db.getWritableDatabase();
     }
 
     public List<Operacao> getAllOperacoes() {
@@ -28,8 +31,8 @@ public class CadastroopDAO {
             String sql = "SELECT o.id, o.valor, o.data, o.categoria, c.id, c.descricao, c.cat_id "+
                          "FROM Operacao o " +
                          "JOIN Categoria c " +
-                         "ON(o.categoria=c.id) ";
-            Cursor cursor = db.getReadableDatabase().rawQuery(sql,null);
+                         "ON(o.categoria = c.id) ";
+            Cursor cursor = Ler.rawQuery(sql,null);
             while(cursor.moveToNext()){
                 Operacao op = new Operacao();
                 Long id = cursor.getLong(0);
@@ -41,10 +44,10 @@ public class CadastroopDAO {
                 Categoria categoria = new Categoria();
                 Long idCat = cursor.getLong(4);
                 String descricao = cursor.getString(5);
-                int debito = cursor.getInt(6);
+                int cat_id = cursor.getInt(6);
                 categoria.setId(idCat);
                 categoria.setDescricao(descricao);
-                categoria.setCat_id(debito);
+                categoria.setCat_id(cat_id);
                 op.setCate(categoria);
                 operacaoList.add(op);
             }
@@ -62,7 +65,7 @@ public class CadastroopDAO {
                          "JOIN Categoria c " +
                          "ON(o.categoria=c.id) " +
                          "ORDER BY o.data DESC LIMIT 15 ";
-            Cursor cursor = db.getReadableDatabase().rawQuery(sql,null);
+            Cursor cursor = Ler.rawQuery(sql,null);
             while(cursor.moveToNext()){
                 Operacao op = new Operacao();
                 Long id = cursor.getLong(0);
@@ -103,7 +106,7 @@ public class CadastroopDAO {
             sql += " ORDER BY o.data DESC ";
             long md1 = Formatacao.dateToMili(d1);
             long md2 = Formatacao.dateToMili(d2);
-            Cursor cursor = db.getReadableDatabase().rawQuery(sql,new String[]{String.valueOf(md1),String.valueOf(md2)});
+            Cursor cursor = Ler.rawQuery(sql,new String[]{String.valueOf(md1),String.valueOf(md2)});
             while(cursor.moveToNext()){
                 Operacao op = new Operacao();
                 Long id = cursor.getLong(0);
@@ -134,7 +137,7 @@ public class CadastroopDAO {
         values.put("valor",operacao.getValor());
         values.put("categoria",operacao.getCate().getId());
         try{
-            db.getWritableDatabase().insert("Operacao",null,values);
+            mostrar.insert("Operacao",null,values);
             Log.i("INFO", "Tarefa salva.");
         }catch (Exception e){
             Log.e("INFO","Erro ao salvar" + e.getMessage());

@@ -15,7 +15,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static int  version = 1;
     private static String  name = "Usuario.db";
 
-    public DBHelper(@Nullable Context context) {
+    public DBHelper(Context context) {
         super(context, name, null, version);
     }
 
@@ -29,28 +29,32 @@ public class DBHelper extends SQLiteOpenHelper {
                         ")";
 
         String str_cat = "CREATE TABLE IF NOT EXISTS Categoria(" +
-                            " id integer primary key autoincrement, " +
+                            " id_c integer primary key autoincrement, " +
                             " descricao varchar(50) , " +
                             " cat_id boolean " +
                             "); ";
 
         String str_op = "CREATE TABLE IF NOT EXISTS Operacao("  +
-                            " id integer primary key autoincrement, " +
-                            " valor double , " +
+                            " id_op integer primary key autoincrement, " +
+                            " valor double, " +
                             " data int, " +
                             " categoria integer, " +
-                            " foreign key (categoria) references Categoria(id)" +
+                            " user_id integer, " +
+                            " foreign key (categoria) references Categoria(id_c), " +
+                            " foreign key (user_id) references Usuario(id)" +
                             "); ";
 
         String str_insert_cat = "INSERT INTO Categoria(descricao,cat_id) " +
                                 "VALUES ('Educação', 1),('Lazer', 1),('Moradia', 1),('Saúde', 1),('Outros', 1)," +
                                         "('Salário', 0), ('Transferências', 0);";
-
+        String str_insert_op = "INSERT INTO Operacao(valor,data,categoria,user_id) " +
+                                "VALUES (250.00, 11122002,1,1);";
         try{
             db.execSQL(strc);
             db.execSQL(str_cat);
             db.execSQL(str_op);
             db.execSQL(str_insert_cat);
+            db.execSQL(str_insert_op);
             Log.i("DB log", "SQL Executada com sucesso!!");
         }catch (Exception e){
             Log.i("DB log","Erro ao Executar as SQL" + e.getMessage());

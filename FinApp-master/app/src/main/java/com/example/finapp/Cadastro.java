@@ -92,36 +92,36 @@ public class Cadastro extends AppCompatActivity implements DatePickerDialog.OnDa
 //            }
 //        });
 
-        btn_Criar_Cadastro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(data==null){
-                    Toast.makeText(Cadastro.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
-                    return ;
-                }
-                if(editTextValor.getText().toString().length()==0){
-                    Toast.makeText(Cadastro.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
-                    return ;
-                }
-                if(categoria==null){
-                    Toast.makeText(Cadastro.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
-                    return ;
-                }
-                Date date;
-                try{
-                    date = Formatacao.stringToDate(data);
-                }catch (Exception e){
-                    Toast.makeText(Cadastro.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
-                    return ;
-                }
-                Operacao op = new Operacao();
-                op.setData(date);
-                op.setValor(Double.parseDouble(editTextValor.getText().toString()));
-                op.setCate(categoria);
-                opDAO.insertOperacao(op);
-                Toast.makeText(Cadastro.this,"Operação cadastrada. ",Toast.LENGTH_SHORT).show();
-            }
-        });
+//        btn_Criar_Cadastro.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(data==null){
+//                    Toast.makeText(Cadastro.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
+//                    return ;
+//                }
+//                if(editTextValor.getText().toString().length()==0){
+//                    Toast.makeText(Cadastro.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
+//                    return ;
+//                }
+//                if(categoria==null){
+//                    Toast.makeText(Cadastro.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
+//                    return ;
+//                }
+//                Date date;
+//                try{
+//                    date = Formatacao.stringToDate(data);
+//                }catch (Exception e){
+//                    Toast.makeText(Cadastro.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
+//                    return ;
+//                }
+//                Operacao op = new Operacao();
+//                op.setData(date);
+//                op.setValor(Double.parseDouble(editTextValor.getText().toString()));
+//                op.setCate(categoria);
+//                opDAO.insertOperacao(op);
+//                Toast.makeText(Cadastro.this,"Operação cadastrada. ",Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 
@@ -130,33 +130,33 @@ public class Cadastro extends AppCompatActivity implements DatePickerDialog.OnDa
         startActivity(intent);
     }
 
-//    public void cadastrar(View view) throws ParseException {
-//        if(data==null){
-//            Toast.makeText(Cadastro.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
-//            return ;
-//        }
-//        if(editTextValor.getText().toString().length()==0){
-//            Toast.makeText(Cadastro.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
-//            return ;
-//        }
-//        if(categoria==null){
-//            Toast.makeText(Cadastro.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
-//            return ;
-//        }
-//        Date date;
-//        try{
-//            date = Formatacao.stringToDate(data);
-//        }catch (Exception e){
-//            Toast.makeText(Cadastro.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
-//            return ;
-//        }
-//        Operacao op = new Operacao();
-//        op.setData(date);
-//        op.setValor(Double.parseDouble(editTextValor.getText().toString()));
-//        op.setCate(categoria);
-//        operacaoDAO.insertOperacao(op);
-//        Toast.makeText(Cadastro.this,"Operação cadastrada. ",Toast.LENGTH_SHORT).show();
-//    }
+    public void cadastrar(View view) throws ParseException {
+        if(data==null){
+            Toast.makeText(Cadastro.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
+            return ;
+        }
+        if(editTextValor.getText().toString().length()==0){
+            Toast.makeText(Cadastro.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
+            return ;
+        }
+        if(categoria==null){
+            Toast.makeText(Cadastro.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
+            return ;
+        }
+        Date date;
+        try{
+            date = Formatacao.stringToDate(data);
+        }catch (Exception e){
+            Toast.makeText(Cadastro.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
+            return ;
+        }
+        Operacao op = new Operacao();
+        op.setData(date);
+        op.setValor(Double.parseDouble(editTextValor.getText().toString()));
+        op.setCate(categoria);
+        opDAO.insertOperacao(op);
+        Toast.makeText(Cadastro.this,"Operação cadastrada. ",Toast.LENGTH_SHORT).show();
+    }
 
 
     public void datePicker(View view){
