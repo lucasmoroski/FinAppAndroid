@@ -25,8 +25,8 @@
         android:src="@drawable/buttonshape"
         android:text="Cadastro"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
 
+        android:textSize="30sp"
         app:backgroundTint="@color/dark_pink"
         app:icon="@android:drawable/ic_menu_add"
         app:layout_constraintBottom_toTopOf="@+id/btnExtrato"
