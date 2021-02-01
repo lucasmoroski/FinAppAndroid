@@ -49,4 +49,5 @@ public class CadastroUser implements Serializable {
                 ", senha='" + senha + '\'' +
                 '}';
     }
+
 }

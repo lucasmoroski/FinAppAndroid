@@ -1,4 +1,7 @@
 package com.example.finapp.Adapter;
 
-public class PesqAD {
+import java.io.Serializable;
+
+public class PesqAD implements Serializable {
+
 }

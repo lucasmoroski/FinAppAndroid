@@ -13,28 +13,29 @@ import com.example.finapp.Formatacao;
 import com.example.finapp.Model.Operacao;
 import com.example.finapp.R;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ExtratoAD {
+public class ExtratoAD implements Serializable {
     private List<Operacao> list;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView categoria, data, valor;
+        TextView categ, valor, data;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-//            categoria = itemView.findViewById(R.id.textViewCategoriaExtrato);
-//            data = itemView.findViewById(R.id.textViewDataExtrato);
-//            valor = itemView.findViewById(R.id.textViewValorExtrato);
+            categ = itemView.findViewById(R.id.textViewCategoriaExtrato);
+            data = itemView.findViewById(R.id.textViewDataExtrato);
+            valor = itemView.findViewById(R.id.textViewValorExtrato);
         }
     }
 
     public ExtratoAD(List<Operacao> list){this.list = list; }
-//
+
 //    @Override
 //    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-////        View operacaoItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.extrato_cell, parent, false);
-////        return new MyViewHolder(operacaoItem);
+//        View operacaoItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_extrato_list, parent, false);
+//        return new MyViewHolder(operacaoItem);
 //    }
 //
 //    @Override
@@ -51,8 +52,8 @@ public class ExtratoAD {
 //        }
 //    }
 //
-//    @Override
-//    public int getItemCount() {
-//        return this.list.size();
-//    }
+
+    public int getItemCount() {
+        return this.list.size();
+    }
 }

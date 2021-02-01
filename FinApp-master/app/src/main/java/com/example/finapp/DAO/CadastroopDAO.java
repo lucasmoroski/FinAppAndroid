@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.finapp.Formatacao;
+import com.example.finapp.Model.CadastroUser;
 import com.example.finapp.Model.Categoria;
 import com.example.finapp.Model.Operacao;
 
@@ -14,15 +15,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.finapp.DAO.DBHelper.Table_Operacao;
+
 public class CadastroopDAO {
 
-    private SQLiteDatabase Ler;
-    private SQLiteDatabase mostrar;
+    private DBHelper dbHelper;
+    private SQLiteDatabase bdr,bdw;
 
-    public CadastroopDAO(Context applicationContext) {
-        DBHelper db = new DBHelper(applicationContext);
-        Ler = db.getReadableDatabase();
-        mostrar = db.getWritableDatabase();
+    public CadastroopDAO(Context context) {
+        dbHelper = new DBHelper(context);
+        bdr = dbHelper.getWritableDatabase();
+        bdw = dbHelper.getWritableDatabase();
     }
 
     public List<Operacao> getAllOperacoes() {
@@ -32,7 +35,7 @@ public class CadastroopDAO {
                          "FROM Operacao o " +
                          "JOIN Categoria c " +
                          "ON(o.categoria = c.id) ";
-            Cursor cursor = Ler.rawQuery(sql,null);
+            Cursor cursor = bdr.rawQuery(sql,null);
             while(cursor.moveToNext()){
                 Operacao op = new Operacao();
                 Long id = cursor.getLong(0);
@@ -65,7 +68,7 @@ public class CadastroopDAO {
                          "JOIN Categoria c " +
                          "ON(o.categoria=c.id) " +
                          "ORDER BY o.data DESC LIMIT 15 ";
-            Cursor cursor = Ler.rawQuery(sql,null);
+            Cursor cursor = bdr.rawQuery(sql,null);
             while(cursor.moveToNext()){
                 Operacao op = new Operacao();
                 Long id = cursor.getLong(0);
@@ -106,7 +109,7 @@ public class CadastroopDAO {
             sql += " ORDER BY o.data DESC ";
             long md1 = Formatacao.dateToMili(d1);
             long md2 = Formatacao.dateToMili(d2);
-            Cursor cursor = Ler.rawQuery(sql,new String[]{String.valueOf(md1),String.valueOf(md2)});
+            Cursor cursor = bdr.rawQuery(sql,new String[]{String.valueOf(md1),String.valueOf(md2)});
             while(cursor.moveToNext()){
                 Operacao op = new Operacao();
                 Long id = cursor.getLong(0);
@@ -131,19 +134,14 @@ public class CadastroopDAO {
         }
     }
 
-    public boolean insertOperacao(Operacao operacao){
-        ContentValues values = new ContentValues();
-        values.put("data",Formatacao.dateToMili(operacao.getData()));
-        values.put("valor",operacao.getValor());
-        values.put("categoria",operacao.getCate().getId());
-        try{
-            mostrar.insert("Operacao",null,values);
-            Log.i("INFO", "Tarefa salva.");
-        }catch (Exception e){
-            Log.e("INFO","Erro ao salvar" + e.getMessage());
-            return false;
-        }
-        return true;
+    public long insertOp(Operacao op, CadastroUser us){
+        ContentValues v = new ContentValues();
+        v.put("data",Formatacao.dateToMili(op.getData()));
+        v.put("valor",op.getValor());
+        v.put("categoria",op.getCate().getId());
+        v.put("user_id",us.getId());
+        return bdw.insert(Table_Operacao,null,v);
+
     }
 
 }

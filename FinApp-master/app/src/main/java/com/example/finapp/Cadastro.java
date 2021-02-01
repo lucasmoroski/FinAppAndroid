@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,16 +22,21 @@ import android.widget.Toast;
 
 import com.example.finapp.DAO.CadastroopDAO;
 import com.example.finapp.DAO.CateDAO;
+import com.example.finapp.DAO.DBHelper;
+import com.example.finapp.DAO.UsuarioDAO;
+import com.example.finapp.Model.CadastroUser;
 import com.example.finapp.Model.Categoria;
 import com.example.finapp.Model.Operacao;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class Cadastro extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+import static com.example.finapp.DAO.DBHelper.Table_Categoria;
 
+public class Cadastro extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
 //    Spinner spinnerCadastro;
     EditText editTextValor;
@@ -37,6 +44,7 @@ public class Cadastro extends AppCompatActivity implements DatePickerDialog.OnDa
     private Categoria categoria;
     private CadastroopDAO opDAO;
     private CateDAO cateDAO;
+    private CadastroUser CadastUs;
     String data;
     Button btn_Criar_Cadastro;
     private List<Categoria> listcat;
@@ -47,6 +55,31 @@ public class Cadastro extends AppCompatActivity implements DatePickerDialog.OnDa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
+
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase dbc = dbHelper.getReadableDatabase();
+//        long tableverifica = DatabaseUtils.queryNumEntries(dbc, Table_Categoria);
+//        if(tableverifica == 01) {
+//            dbHelper.insertCategoria("Educação", 1);
+//            dbHelper.insertCategoria("Lazer", 1);
+//            dbHelper.insertCategoria("Moradia", 1);
+//            dbHelper.insertCategoria("Saúde", 1);
+//            dbHelper.insertCategoria("Outros", 1);
+//            dbHelper.insertCategoria("Salário", 0);
+//            dbHelper.insertCategoria("Transferências", 0);
+//        }
+        ArrayList<String> listCat = dbHelper.getAllCat();
+        Spinner spCat = (Spinner)findViewById(R.id.spinnerCadastro);
+        ArrayAdapter<String> adCat = new ArrayAdapter<String>(this,R.layout.spinner_list_cate,R.id.txtCat,listCat);
+        spCat.setAdapter(adCat);
+//        spCat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//            }
+//        });
+
+
         //data = (String)findViewById(R.id.editDataCadastro);
 
 //        spinnerCadastro = findViewById(R.id.spinnerCadastro);
@@ -125,38 +158,40 @@ public class Cadastro extends AppCompatActivity implements DatePickerDialog.OnDa
 
     }
 
-    public void selecionarCadastro(View view) {
-        Intent intent = new Intent(this, OperacaoFinanceira.class);
-        startActivity(intent);
-    }
-
-    public void cadastrar(View view) throws ParseException {
-        if(data==null){
-            Toast.makeText(Cadastro.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
-            return ;
-        }
-        if(editTextValor.getText().toString().length()==0){
-            Toast.makeText(Cadastro.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
-            return ;
-        }
-        if(categoria==null){
-            Toast.makeText(Cadastro.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
-            return ;
-        }
-        Date date;
-        try{
-            date = Formatacao.stringToDate(data);
-        }catch (Exception e){
-            Toast.makeText(Cadastro.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
-            return ;
-        }
-        Operacao op = new Operacao();
-        op.setData(date);
-        op.setValor(Double.parseDouble(editTextValor.getText().toString()));
-        op.setCate(categoria);
-        opDAO.insertOperacao(op);
-        Toast.makeText(Cadastro.this,"Operação cadastrada. ",Toast.LENGTH_SHORT).show();
-    }
+//    public void selecionarCadastro(View view) {
+//        Intent intent = new Intent(this, OperacaoFinanceira.class);
+//        startActivity(intent);
+//    }
+//
+//    public void cadastrar(View view) throws ParseException {
+//        if(data==null){
+//            Toast.makeText(Cadastro.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
+//            return ;
+//        }
+//        if(editTextValor.getText().toString().length()==0){
+//            Toast.makeText(Cadastro.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
+//            return ;
+//        }
+//        if(categoria==null){
+//            Toast.makeText(Cadastro.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
+//            return ;
+//        }
+//        Date date;
+//        try{
+//            date = Formatacao.stringToDate(data);
+//        }catch (Exception e){
+//            Toast.makeText(Cadastro.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
+//            return ;
+//        }
+//        Operacao op = new Operacao();
+//        CadastroUser us = new CadastroUser();
+//        op.setData(date);
+//        op.setValor(Double.parseDouble(editTextValor.getText().toString()));
+//        op.setCate(categoria);
+//        us.getId();
+//        opDAO.insertOp(op,us);
+//        Toast.makeText(Cadastro.this,"Operação cadastrada. ",Toast.LENGTH_SHORT).show();
+//    }
 
 
     public void datePicker(View view){

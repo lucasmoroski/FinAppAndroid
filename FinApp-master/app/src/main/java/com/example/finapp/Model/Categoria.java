@@ -1,6 +1,8 @@
 package com.example.finapp.Model;
 
-public class Categoria {
+import java.io.Serializable;
+
+public class Categoria implements Serializable {
     long id;
     String descricao;
     int cat_id;

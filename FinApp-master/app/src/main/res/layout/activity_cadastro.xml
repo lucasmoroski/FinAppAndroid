@@ -44,7 +44,7 @@
 
         android:src="@drawable/editshape"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/editValorCadastro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

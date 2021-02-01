@@ -1,14 +1,11 @@
 package com.example.finapp.Model;
 
 import java.io.Serializable;
-import java.util.Date;
 
-public class Operacao implements Serializable {
-
+public class CateValor implements Serializable {
     long id;
     double valor;
-    Date data;
-    Categoria cate;
+    Categoria categ;
 
     public long getId() {
         return id;
@@ -26,19 +23,11 @@ public class Operacao implements Serializable {
         this.valor = valor;
     }
 
-    public Date getData() {
-        return data;
+    public Categoria getCateg() {
+        return categ;
     }
 
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public Categoria getCate() {
-        return cate;
-    }
-
-    public void setCate(Categoria cate) {
-        this.cate = cate;
+    public void setCateg(Categoria categ) {
+        this.categ = categ;
     }
 }
