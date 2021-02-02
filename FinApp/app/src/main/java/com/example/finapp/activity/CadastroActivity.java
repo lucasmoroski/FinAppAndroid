@@ -3,6 +3,7 @@ package com.example.finapp.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -58,11 +59,11 @@ public class CadastroActivity extends AppCompatActivity implements DatePickerDia
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 categoria = (Categoria) adapterView.getSelectedItem();
                 textViewSpinner = findViewById(R.id.textViewSpinner);
-                if(categoria.isDebito()==1){
-                    textViewSpinner.setTextColor(Color.parseColor("#ff0000"));
-                }else{
-                    textViewSpinner.setTextColor(Color.parseColor("#00ff00"));
-                }
+//                if(categoria.isDebito()==1){
+//                    textViewSpinner.setTextColor(Color.parseColor("#ff0000"));
+//                }else{
+//                    textViewSpinner.setTextColor(Color.parseColor("#00ff00"));
+//                }
                 Toast.makeText(CadastroActivity.this,"Selecionado: "+categoria,Toast.LENGTH_SHORT).show();
             }
 
@@ -97,8 +98,12 @@ public class CadastroActivity extends AppCompatActivity implements DatePickerDia
         op.setData(date);
         op.setValor(Double.parseDouble(editTextValor.getText().toString()));
         op.setCategoria(categoria);
-        operacaoDAO.insertOperacao(op);
+        boolean teste = operacaoDAO.insertOperacao(op);
         Toast.makeText(CadastroActivity.this,"Operação cadastrada. ",Toast.LENGTH_SHORT).show();
+        if(teste == true) {
+            Intent intent = new Intent(CadastroActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void datePicker(View view){
