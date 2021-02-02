@@ -6,13 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.finapp.Utils;
+import com.example.finapp.Formatador;
 import com.example.finapp.model.Categoria;
 import com.example.finapp.model.Operacao;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +38,7 @@ public class OperacaoDAO {
                 Double valor = cursor.getDouble(1);
                 op.setId(id);
                 op.setValor(valor);
-                op.setData(Utils.miliToDate(cursor.getLong(2)));
+                op.setData(Formatador.miliToDate(cursor.getLong(2)));
                 Categoria categoria = new Categoria();
                 Long idCat = cursor.getLong(4);
                 String descricao = cursor.getString(5);
@@ -58,7 +55,7 @@ public class OperacaoDAO {
         }
     }
 
-    public List<Operacao> get15Operacoes() {
+    public List<Operacao> getOperacao() {
         List<Operacao> operacaoList = new ArrayList<>();
         try{
             String sql = "SELECT o.id, o.valor, o.data, o.categoria, c.id, c.descricao, c.debito "+
@@ -71,7 +68,7 @@ public class OperacaoDAO {
                 Double valor = cursor.getDouble(1);
                 op.setId(id);
                 op.setValor(valor);
-                op.setData(Utils.miliToDate(cursor.getLong(2)));
+                op.setData(Formatador.miliToDate(cursor.getLong(2)));
                 Categoria categoria = new Categoria();
                 Long idCat = cursor.getLong(4);
                 String descricao = cursor.getString(5);
@@ -100,8 +97,8 @@ public class OperacaoDAO {
                 sql += " AND c.debito = 0 ";
             }
             sql += " ORDER BY o.data DESC ";
-            long md1 = Utils.dateToMili(d1);
-            long md2 = Utils.dateToMili(d2);
+            long md1 = Formatador.dateToMili(d1);
+            long md2 = Formatador.dateToMili(d2);
             Cursor cursor = read.rawQuery(sql,new String[]{String.valueOf(md1),String.valueOf(md2)});
             while(cursor.moveToNext()){
                 Operacao op = new Operacao();
@@ -109,7 +106,7 @@ public class OperacaoDAO {
                 Double valor = cursor.getDouble(1);
                 op.setId(id);
                 op.setValor(valor);
-                op.setData(Utils.miliToDate(cursor.getLong(2)));
+                op.setData(Formatador.miliToDate(cursor.getLong(2)));
                 Categoria cat = new Categoria();
                 Long idCat = cursor.getLong(4);
                 String descricao = cursor.getString(5);
@@ -128,7 +125,7 @@ public class OperacaoDAO {
 
     public boolean insertOperacao(Operacao operacao){
         ContentValues values = new ContentValues();
-        values.put("data",Utils.dateToMili(operacao.getData()));
+        values.put("data", Formatador.dateToMili(operacao.getData()));
         values.put("valor",operacao.getValor());
         values.put("categoria",operacao.getCategoria().getId());
         try{

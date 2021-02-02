@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finapp.R;
-import com.example.finapp.Utils;
+import com.example.finapp.Formatador;
 import com.example.finapp.model.Operacao;
 
 import java.util.List;
@@ -42,13 +42,13 @@ public class PesquisaAdapter extends RecyclerView.Adapter<PesquisaAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Operacao operacao = list.get(position);
         holder.categoria.setText(operacao.getCategoria().getDescricao());
-        holder.data.setText(Utils.dateToString(operacao.getData()));
+        holder.data.setText(Formatador.dateToString(operacao.getData()));
         if(operacao.getCategoria().isDebito()==1){
-            holder.valor.setText("- " + Utils.formatValor(operacao.getValor()));
-            holder.valor.setTextColor(Color.parseColor("#ff0000"));
+            holder.valor.setText("- " + Formatador.formatValor(operacao.getValor()));
+            holder.valor.setTextColor(Color.parseColor("#f15757"));
         }else{
-            holder.valor.setText("+ " + Utils.formatValor(operacao.getValor()));
-            holder.valor.setTextColor(Color.parseColor("#00ff00"));
+            holder.valor.setText("+ " + Formatador.formatValor(operacao.getValor()));
+            holder.valor.setTextColor(Color.parseColor("#52bf52"));
         }
     }
 

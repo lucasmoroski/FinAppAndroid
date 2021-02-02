@@ -10,9 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finapp.R;
-import com.example.finapp.Utils;
+import com.example.finapp.Formatador;
 import com.example.finapp.model.ItemLista;
-import com.example.finapp.model.Operacao;
 
 import java.util.List;
 
@@ -43,11 +42,11 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder
         ItemLista itemLista = list.get(position);
         holder.categoria.setText(itemLista.getCategoria().getDescricao());
         if(itemLista.getCategoria().isDebito()==1){
-            holder.valor.setText("- " + Utils.formatValor(itemLista.getValor()));
-            holder.valor.setTextColor(Color.parseColor("#ff0000"));
+            holder.valor.setText("- " + Formatador.formatValor(itemLista.getValor()));
+            holder.valor.setTextColor(Color.parseColor("#f15757"));
         }else{
-            holder.valor.setText("+ " + Utils.formatValor(itemLista.getValor()));
-            holder.valor.setTextColor(Color.parseColor("#00ff00"));
+            holder.valor.setText("+ " + Formatador.formatValor(itemLista.getValor()));
+            holder.valor.setTextColor(Color.parseColor("#52bf52"));
         }
     }
 

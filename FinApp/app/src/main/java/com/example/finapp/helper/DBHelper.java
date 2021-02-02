@@ -7,10 +7,10 @@ import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static int DB_VERSION = 6;
-    public static String DB_NAME = "FINAPP.DB";
-    public static String TABLE1_NAME = "operacoes";
-    public static String TABLE2_NAME = "categorias";
+    public static int DB_VERSION = 7;
+    public static String DB_NAME = "Bancoinfinit.DB";
+    public static String TABLE1_NAME = "Operacao";
+    public static String TABLE2_NAME = "Categorias";
 
     public DBHelper(Context context){
         super(context, DB_NAME, null, DB_VERSION);
@@ -50,9 +50,9 @@ public class DBHelper extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(sql);
             sqLiteDatabase.execSQL(sql2);
             onCreate(sqLiteDatabase);
-            Log.i("INFO DB","Tabela Atualizada.");
+            Log.i("INFO DB","DB Atualizado.");
         }catch (Exception e){
-            Log.i("INFO DB","Erro ao atualizar tabela." + e.getMessage());
+            Log.i("INFO DB","Erro ao atualizar DB." + e.getMessage());
         }
     }
 }

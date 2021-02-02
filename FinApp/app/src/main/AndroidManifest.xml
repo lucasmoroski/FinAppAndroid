@@ -16,11 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.DadosPesquisaActivity" />
-        <activity android:name=".activity.PesquisarActivity" />
-        <activity android:name=".activity.ListaClassificadaActivity" />
-        <activity android:name=".activity.ExtratoActivity" />
-        <activity android:name=".activity.CadastroActivity" />
+        <activity android:name=".activity.ResultSearch" />
+        <activity android:name=".activity.Search" />
+        <activity android:name=".activity.ListaClassificada" />
+        <activity android:name=".activity.Extrato" />
+        <activity android:name=".activity.CadastroOperacao" />
         <activity android:name=".activity.MainActivity"/>
     </application>
 

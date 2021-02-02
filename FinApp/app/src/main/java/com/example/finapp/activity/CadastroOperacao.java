@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,19 +15,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.finapp.R;
-import com.example.finapp.Utils;
+import com.example.finapp.Formatador;
 import com.example.finapp.helper.CategoriaDAO;
 import com.example.finapp.helper.OperacaoDAO;
 import com.example.finapp.model.Categoria;
 import com.example.finapp.model.Operacao;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class CadastroActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class CadastroOperacao extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     Spinner spinnerCategorias;
     EditText editTextValor;
@@ -59,12 +57,7 @@ public class CadastroActivity extends AppCompatActivity implements DatePickerDia
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 categoria = (Categoria) adapterView.getSelectedItem();
                 textViewSpinner = findViewById(R.id.textViewSpinner);
-//                if(categoria.isDebito()==1){
-//                    textViewSpinner.setTextColor(Color.parseColor("#ff0000"));
-//                }else{
-//                    textViewSpinner.setTextColor(Color.parseColor("#00ff00"));
-//                }
-                Toast.makeText(CadastroActivity.this,"Selecionado: "+categoria,Toast.LENGTH_SHORT).show();
+                Toast.makeText(CadastroOperacao.this,"Selecionado: "+categoria,Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -75,23 +68,21 @@ public class CadastroActivity extends AppCompatActivity implements DatePickerDia
     }
 
     public void cadastrar(View view) throws ParseException {
-        if(data==null){
-            Toast.makeText(CadastroActivity.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
+        if(data == null){
+            Toast.makeText(CadastroOperacao.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
             return ;
-        }else
-        if(editTextValor.getText().toString().length()==0){
-            Toast.makeText(CadastroActivity.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
+        }else if(editTextValor.getText().toString().length() == 0){
+            Toast.makeText(CadastroOperacao.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
             return ;
-        }else
-        if(categoria==null){
-            Toast.makeText(CadastroActivity.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
+        }else if(categoria == null){
+            Toast.makeText(CadastroOperacao.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
             return ;
         }
         Date date;
         try{
-            date = Utils.stringToDate(data);
+            date = Formatador.stringToDate(data);
         }catch (Exception e){
-            Toast.makeText(CadastroActivity.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(CadastroOperacao.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
             return ;
         }
         Operacao op = new Operacao();
@@ -99,9 +90,9 @@ public class CadastroActivity extends AppCompatActivity implements DatePickerDia
         op.setValor(Double.parseDouble(editTextValor.getText().toString()));
         op.setCategoria(categoria);
         boolean teste = operacaoDAO.insertOperacao(op);
-        Toast.makeText(CadastroActivity.this,"Operação cadastrada. ",Toast.LENGTH_SHORT).show();
+        Toast.makeText(CadastroOperacao.this,"Operação cadastrada. ",Toast.LENGTH_SHORT).show();
         if(teste == true) {
-            Intent intent = new Intent(CadastroActivity.this, MainActivity.class);
+            Intent intent = new Intent(CadastroOperacao.this, MainActivity.class);
             startActivity(intent);
         }
     }

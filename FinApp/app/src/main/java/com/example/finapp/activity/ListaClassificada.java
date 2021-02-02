@@ -19,7 +19,7 @@ import com.example.finapp.model.Operacao;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaClassificadaActivity extends AppCompatActivity {
+public class ListaClassificada extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ListaAdapter listaAdapter;
@@ -33,7 +33,7 @@ public class ListaClassificadaActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewLista);
 
         ListaDAO listaDAO = new ListaDAO(getApplicationContext());
-        itemList = listaDAO.get15Itens();
+        itemList = listaDAO.getExtrato();
 
         listaAdapter = new ListaAdapter(itemList);
 

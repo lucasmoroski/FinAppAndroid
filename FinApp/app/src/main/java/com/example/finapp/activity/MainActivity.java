@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.example.finapp.R;
 
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         btnCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CadastroActivity.class);
+                Intent intent = new Intent(MainActivity.this, CadastroOperacao.class);
                 startActivity(intent);
             }
         });
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         btnExtrato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ExtratoActivity.class);
+                Intent intent = new Intent(MainActivity.this, Extrato.class);
                 startActivity(intent);
             }
         });
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         btnPesquisar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PesquisarActivity.class);
+                Intent intent = new Intent(MainActivity.this, Search.class);
                 startActivity(intent);
             }
         });
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         btnListar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ListaClassificadaActivity.class);
+                Intent intent = new Intent(MainActivity.this, ListaClassificada.class);
                 startActivity(intent);
             }
         });

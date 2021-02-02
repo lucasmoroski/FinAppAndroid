@@ -8,10 +8,6 @@ import android.os.Handler;
 import com.example.finapp.activity.MainActivity;
 
 public class Splash extends Activity {
-    // Timer da splash screen
-    private static int SPLASH_TIME_OUT = 3000;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,20 +15,12 @@ public class Splash extends Activity {
         setContentView(R.layout.activity_splash);
 
         new Handler().postDelayed(new Runnable() {
-            /*
-             * Exibindo splash com um timer.
-             */
             @Override
             public void run() {
-                // Esse método será executado sempre que o timer acabar
-                // E inicia a activity principal
-                Intent i = new Intent(Splash.this,
-                        MainActivity.class);
+                Intent i = new Intent(Splash.this, MainActivity.class);
                 startActivity(i);
-
-                // Fecha esta activity
                 finish();
             }
-        }, SPLASH_TIME_OUT);
+        }, 5000);
     }
 }

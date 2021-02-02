@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fundotela"
-    tools:context=".activity.PesquisarActivity">
+    tools:context=".activity.Search">
 
     <TextView
         android:id="@+id/textView5"
@@ -94,11 +94,11 @@
         android:id="@+id/button5"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:onClick="pesquisar"
-        android:text="Pesquisar"
         android:background="@drawable/buttonshape"
         android:gravity="center"
+        android:onClick="BuscaCredandDebito"
         android:src="@drawable/buttonshape"
+        android:text="Pesquisar"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:backgroundTint="@color/dark_pink"

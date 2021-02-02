@@ -16,10 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.finapp.R;
-import com.example.finapp.Utils;
+import com.example.finapp.Formatador;
 import com.example.finapp.helper.CategoriaDAO;
 import com.example.finapp.helper.OperacaoDAO;
-import com.example.finapp.model.Categoria;
 import com.example.finapp.model.Operacao;
 
 import java.text.ParseException;
@@ -28,25 +27,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class PesquisarActivity extends AppCompatActivity {
+public class Search extends AppCompatActivity {
 
     Spinner spinner;
     TextView textViewData1, textViewData2, textViewSpinner;
-    Button botao1, botao2;
+    Button btnDtInicio, btnDtFim;
     OperacaoDAO operacaoDAO;
-    String data1, data2, categoria;
+    String dtInicio, dtFim, categoria;
     public static List<Operacao> operacoes;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pesquisar);
+        setContentView(R.layout.activity_search);
         spinner = findViewById(R.id.spinner);
         textViewData1 = findViewById(R.id.textView10);
         textViewData2 = findViewById(R.id.textView9);
-        botao1 = findViewById(R.id.button2);
-        botao2 = findViewById(R.id.button4);
+        btnDtInicio = findViewById(R.id.button2);
+        btnDtFim = findViewById(R.id.button4);
 
         CategoriaDAO categoriaDAO = new CategoriaDAO(getApplicationContext());
         operacaoDAO = new OperacaoDAO(getApplicationContext());
@@ -66,12 +65,7 @@ public class PesquisarActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 categoria = (String) adapterView.getSelectedItem();
                 textViewSpinner = findViewById(R.id.textViewSpinner);
-                if (categoria.equals("Débito")) {
-                    textViewSpinner.setTextColor(Color.parseColor("#ff0000"));
-                } else if (categoria.equals("Crédito")) {
-                    textViewSpinner.setTextColor(Color.parseColor("#00ff00"));
-                }
-                Toast.makeText(PesquisarActivity.this, "Selecionado: " + categoria, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Search.this, "Selecionado: " + categoria, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -85,15 +79,15 @@ public class PesquisarActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final View vv = view;
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(PesquisarActivity.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Search.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         if(vv.getId() == R.id.button2){
-                            data1 = day+"/"+(month+1)+"/"+year;
-                            textViewData1.setText(data1);
+                            dtInicio = day+"/"+(month+1)+"/"+year;
+                            textViewData1.setText(dtInicio);
                         }else{
-                            data2 = day+"/"+(month+1)+"/"+year;
-                            textViewData2.setText(data2);
+                            dtFim = day+"/"+(month+1)+"/"+year;
+                            textViewData2.setText(dtFim);
                         }
                     }
                 },Calendar.getInstance().get(Calendar.YEAR),
@@ -102,32 +96,37 @@ public class PesquisarActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         };
-        botao1.setOnClickListener(showDatePicker);
-        botao2.setOnClickListener(showDatePicker);
+
+        btnDtInicio.setOnClickListener(showDatePicker);
+        btnDtFim.setOnClickListener(showDatePicker);
     }
-    public void pesquisar(View view) throws ParseException {
-        if(data1==null){
-            Toast.makeText(PesquisarActivity.this,"Selecione a data de início. ",Toast.LENGTH_SHORT).show();
+    public void BuscaCredandDebito(View view) throws ParseException {
+        if(dtInicio == null){
+            Toast.makeText(Search.this,"Data de início Não inserida. ",Toast.LENGTH_SHORT).show();
+            return ;
+        }else
+        if(dtFim == null){
+            Toast.makeText(Search.this,"Data de fim Não inserida. ",Toast.LENGTH_SHORT).show();
+            return ;
+        }else
+        if(categoria == null){
+            Toast.makeText(Search.this,"Categoria Não selecionada. ",Toast.LENGTH_SHORT).show();
             return ;
         }
-        if(data2==null){
-            Toast.makeText(PesquisarActivity.this,"Selecione a data de fim. ",Toast.LENGTH_SHORT).show();
-            return ;
-        }
-        if(categoria==null){
-            Toast.makeText(PesquisarActivity.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
-            return ;
-        }
-        Date date1, date2;
+        Date dtIni, dtF;
         try{
-            date1 = Utils.stringToDate(data1);
-            date2 = Utils.stringToDate(data2);
-            operacoes = operacaoDAO.pesquisar(date1, date2, categoria);
-            Intent i = new Intent(this, DadosPesquisaActivity.class);
-            startActivity(i);
+            dtIni = Formatador.stringToDate(dtInicio);
+            dtF = Formatador.stringToDate(dtFim);
+            if(dtF.getTime() < dtIni.getTime()) {
+                operacoes = operacaoDAO.pesquisar(dtIni, dtF, categoria);
+                Intent i = new Intent(this, ResultSearch.class);
+                startActivity(i);
+            }else{
+                Toast.makeText(Search.this,"Selecione A data Final maior que a de Inicio. ",Toast.LENGTH_SHORT).show();
+            }
 
         }catch (Exception e){
-            Toast.makeText(PesquisarActivity.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(Search.this,"Erro ao Pesquisar. ",Toast.LENGTH_SHORT).show();
             return ;
         }
 

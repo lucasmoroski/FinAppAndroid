@@ -1,21 +1,13 @@
 package com.example.finapp.helper;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import com.example.finapp.Utils;
 import com.example.finapp.model.Categoria;
 import com.example.finapp.model.ItemLista;
-import com.example.finapp.model.Operacao;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ListaDAO {
@@ -58,7 +50,7 @@ public class ListaDAO {
         }
     }
 
-    public List<ItemLista> get15Itens() {
+    public List<ItemLista> getExtrato() {
         List<ItemLista> itemList = new ArrayList<>();
         try {
             String sql = "SELECT o.id, SUM(o.valor) as valor, o.data, o.categoria, c.id, c.descricao, c.debito " +

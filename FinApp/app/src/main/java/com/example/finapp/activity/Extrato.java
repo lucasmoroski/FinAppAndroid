@@ -5,35 +5,40 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.finapp.R;
-import com.example.finapp.adapter.ExtratoAdapter;
-import com.example.finapp.adapter.PesquisaAdapter;
-import com.example.finapp.model.Operacao;
-
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
+import com.example.finapp.R;
+import com.example.finapp.adapter.ExtratoAdapter;
+import com.example.finapp.helper.OperacaoDAO;
+import com.example.finapp.model.Operacao;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class DadosPesquisaActivity extends AppCompatActivity {
-
-
+public class Extrato extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private PesquisaAdapter pesquisaAdapter;
+    private ExtratoAdapter extratoAdapter;
+    private List<Operacao> operacaoList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dados_pesquisa);
+        setContentView(R.layout.activity_extrato);
 
-        pesquisaAdapter = new PesquisaAdapter(PesquisarActivity.operacoes);
+        recyclerView = findViewById(R.id.recyclerViewExtrato);
 
-        recyclerView = findViewById(R.id.recyclerViewPesquisa);
+        OperacaoDAO operacaoDAO = new OperacaoDAO(getApplicationContext());
+        operacaoList = operacaoDAO.getOperacao();
+
+        extratoAdapter = new ExtratoAdapter(operacaoList);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
-        recyclerView.setAdapter(pesquisaAdapter);
+        recyclerView.setAdapter(extratoAdapter);
+
     }
 }
