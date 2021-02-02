@@ -77,11 +77,11 @@ public class CadastroActivity extends AppCompatActivity implements DatePickerDia
         if(data==null){
             Toast.makeText(CadastroActivity.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
             return ;
-        }
+        }else
         if(editTextValor.getText().toString().length()==0){
             Toast.makeText(CadastroActivity.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
             return ;
-        }
+        }else
         if(categoria==null){
             Toast.makeText(CadastroActivity.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
             return ;

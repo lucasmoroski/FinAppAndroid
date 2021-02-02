@@ -5,70 +5,60 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.finapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView imgCadastrar, imgExtrato, imgPesquisar, imgCategoria;
+    Button btnCadastro,btnPesquisar,btnListar,btnExtrato;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        imgCadastrar = findViewById(R.id.imageViewCadastrar);
-        imgExtrato = findViewById(R.id.imageViewExtrato);
-        imgPesquisar = findViewById(R.id.imageViewPesquisar);
-        imgCategoria = findViewById(R.id.imageViewCategorias);
+        btnCadastro = (Button)findViewById(R.id.btnCadastro);
+        btnExtrato = findViewById(R.id.btnExtrato);
+        btnPesquisar = (Button)findViewById(R.id.btnPesquisar);
+        btnListar = findViewById(R.id.btnListar);
 
-        imgCadastrar.setOnClickListener(new View.OnClickListener() {
+        btnCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cadastrar(view);
+                Intent intent = new Intent(MainActivity.this, CadastroActivity.class);
+                startActivity(intent);
             }
         });
 
-        imgExtrato.setOnClickListener(new View.OnClickListener() {
+        btnExtrato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                extrato(view);
+                Intent intent = new Intent(MainActivity.this, ExtratoActivity.class);
+                startActivity(intent);
             }
         });
 
-        imgPesquisar.setOnClickListener(new View.OnClickListener() {
+        btnPesquisar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pesquisar(view);
+                Intent intent = new Intent(MainActivity.this, PesquisarActivity.class);
+                startActivity(intent);
             }
         });
 
-        imgCategoria.setOnClickListener(new View.OnClickListener() {
+        btnListar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lista(view);
+                Intent intent = new Intent(MainActivity.this, ListaClassificadaActivity.class);
+                startActivity(intent);
             }
         });
 
     }
 
-    public void cadastrar(View view){
-        Intent intent = new Intent(MainActivity.this, CadastroActivity.class);
-        startActivity(intent);
-    }
 
-    public void extrato(View view){
-        Intent intent = new Intent(MainActivity.this, ExtratoActivity.class);
-        startActivity(intent);
-    }
-
-    public void pesquisar(View view){
-        Intent intent = new Intent(MainActivity.this, PesquisarActivity.class);
-        startActivity(intent);
-    }
-
-    public void lista(View view){
-        Intent intent = new Intent(MainActivity.this, ListaClassificadaActivity.class);
-        startActivity(intent);
+    public void sairApp(View view) {
+        finish();
     }
 }

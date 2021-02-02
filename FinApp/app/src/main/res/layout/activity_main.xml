@@ -4,59 +4,170 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
+    android:layout_margin="0dp"
+    android:background="@drawable/fundotela"
     tools:context=".activity.MainActivity">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="FinApp"
-        android:textColor="#6200EE"
-        android:textSize="48sp"
+    <Button
+        android:id="@+id/btnCadastro"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/buttonshape"
+        android:gravity="center"
+        android:isScrollContainer="false"
+        android:src="@drawable/buttonshape"
+        android:text="Cadastro"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:backgroundTint="#E91E63"
+        app:icon="@android:drawable/ic_menu_add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageViewCadastrar"
-        android:layout_width="150dp"
-        android:layout_height="175dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="108dp"
-        android:src="@drawable/cadastro"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+    <Button
+        android:id="@+id/btnExtrato"
 
-    <ImageView
-        android:id="@+id/imageViewPesquisar"
-        android:layout_width="150dp"
-        android:layout_height="175dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/pesquisar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewCadastrar" />
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="220dp"
 
-    <ImageView
-        android:id="@+id/imageViewCategorias"
-        android:layout_width="150dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/categoria"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/buttonshape"
+
+        android:gravity="center"
+        android:src="@drawable/buttonshape"
+        android:text="Extrato"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        app:backgroundTint="#E91E63"
+        app:icon="@android:drawable/ic_menu_today"
+        app:layout_constraintBottom_toTopOf="@+id/btnPesquisar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewExtrato" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageViewExtrato"
-        android:layout_width="150dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/extrato"
+    <Button
+        android:id="@+id/btnPesquisar"
+
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="340dp"
+
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/buttonshape"
+
+        android:gravity="center"
+        android:src="@drawable/buttonshape"
+        android:text="Pesquisar"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        app:backgroundTint="#E91E63"
+        app:icon="@android:drawable/ic_menu_search"
+        app:layout_constraintBottom_toTopOf="@+id/btnListar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnListar"
+
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="480dp"
+
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="75dp"
+        android:background="@drawable/buttonshape"
+
+        android:gravity="center"
+        android:src="@drawable/buttonshape"
+        android:text="Listar"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        app:backgroundTint="#E91E63"
+        app:icon="@android:drawable/ic_menu_sort_by_size"
+        app:layout_constraintBottom_toTopOf="@+id/btnSair"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnSair"
+
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="645dp"
+
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/buttonshape"
+
+        android:gravity="center"
+        android:onClick="sairApp"
+        android:src="@drawable/buttonshape"
+        android:text="Sair"
+        android:textColor="#FFFFFF"
+
+        android:textSize="30sp"
+        app:backgroundTint="#E91E63"
+
+        app:icon="@android:drawable/ic_menu_close_clear_cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageViewCadastrar"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="175dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="108dp"-->
+<!--        android:src="@drawable/cadastro"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView4" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageViewPesquisar"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="175dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:src="@drawable/pesquisar"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageViewCadastrar" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageViewCategorias"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="175dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:src="@drawable/categoria"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageViewExtrato" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageViewExtrato"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="175dp"-->
+<!--        android:layout_marginTop="108dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:src="@drawable/extrato"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
