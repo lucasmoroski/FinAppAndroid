@@ -64,9 +64,9 @@
         android:ems="10"
         android:gravity="center"
 
+        android:hint="Valor ex: 1500.00"
         android:inputType="textPersonName"
         android:src="@drawable/editshape"
-        android:text="VALOR"
 
         android:textColor="#FFFFFF"
         android:textSize="30sp"
@@ -88,10 +88,9 @@
         android:background="@drawable/buttonshape"
 
         android:gravity="center"
-        android:onClick="cadastrar"
         android:src="@drawable/buttonshape"
-        android:text="CRIAR"
 
+        android:text="CADASTRAR"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:backgroundTint="@color/dark_pink"

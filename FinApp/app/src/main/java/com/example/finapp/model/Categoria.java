@@ -1,11 +1,11 @@
-package com.example.finapp.Model;
+package com.example.finapp.model;
 
 import java.io.Serializable;
 
 public class Categoria implements Serializable {
-    private long id;
-    private String descricao;
-    private int cat_id;
+    long id;
+    String descricao;
+    int debito;
 
     public long getId() {
         return id;
@@ -23,17 +23,16 @@ public class Categoria implements Serializable {
         this.descricao = descricao;
     }
 
-    public int getCat_id() {
-        return cat_id;
+    public int isDebito() {
+        return debito;
     }
 
-    public void setCat_id(int cat_id) {
-        this.cat_id = cat_id;
+    public void setDebito(int debito) {
+        this.debito = debito;
     }
 
     @Override
     public String toString() {
         return this.descricao;
     }
-
 }

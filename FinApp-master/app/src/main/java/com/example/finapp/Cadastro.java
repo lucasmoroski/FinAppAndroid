@@ -20,9 +20,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finapp.Adapter.ListaAD;
 import com.example.finapp.DAO.CadastroopDAO;
 import com.example.finapp.DAO.CateDAO;
 import com.example.finapp.DAO.DBHelper;
+import com.example.finapp.DAO.RecyclerView;
 import com.example.finapp.DAO.UsuarioDAO;
 import com.example.finapp.Model.CadastroUser;
 import com.example.finapp.Model.Categoria;
@@ -38,84 +40,57 @@ import static com.example.finapp.DAO.DBHelper.Table_Categoria;
 
 public class Cadastro extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
-//    Spinner spinnerCadastro;
+    private Spinner spCat;
+    private ListaAD listaAD;
+    private List<Categoria> listCat = new ArrayList<>();
+
+//    Spinner spCat;
     EditText editTextValor;
-    TextView viewData, textViewSpinner;
-    private Categoria categoria;
+    TextView viewData, txtCat;
+    Categoria categoria;
     private CadastroopDAO opDAO;
-    private CateDAO cateDAO;
     private CadastroUser CadastUs;
     String data;
     Button btn_Criar_Cadastro;
-    private List<Categoria> listcat;
-    private List<Operacao> operacoes;
+//    CateDAO ctdao;
+//    private List<Categoria> listcat;
+//    private List<Operacao> operacoes;
 //    EditText DataCadastro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
+        viewData = findViewById(R.id.dataSelecio);
+        btn_Criar_Cadastro = (Button) findViewById(R.id.btnCriarCadastro);
+        opDAO = new CadastroopDAO(getApplicationContext());
+
+        spCat = findViewById(R.id.spinnerCadastro);
+
+        CateDAO cateDAO = new CateDAO(getApplicationContext());
+        listCat = cateDAO.getAllCategorias();
+        listaAD = new ListaAD(listCat);
 
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase dbc = dbHelper.getReadableDatabase();
-//        long tableverifica = DatabaseUtils.queryNumEntries(dbc, Table_Categoria);
-//        if(tableverifica == 01) {
-//            dbHelper.insertCategoria("Educação", 1);
-//            dbHelper.insertCategoria("Lazer", 1);
-//            dbHelper.insertCategoria("Moradia", 1);
-//            dbHelper.insertCategoria("Saúde", 1);
-//            dbHelper.insertCategoria("Outros", 1);
-//            dbHelper.insertCategoria("Salário", 0);
-//            dbHelper.insertCategoria("Transferências", 0);
-//        }
-        ArrayList<String> listCat = dbHelper.getAllCat();
-        Spinner spCat = (Spinner)findViewById(R.id.spinnerCadastro);
-        ArrayAdapter<String> adCat = new ArrayAdapter<String>(this,R.layout.spinner_list_cate,R.id.txtCat,listCat);
+
+        ArrayAdapter adCat = new ArrayAdapter(this,R.layout.todo_cell,listCat);
         spCat.setAdapter(adCat);
-//        spCat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//            }
-//        });
+        spCat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                 categoria = (Categoria)adapterView.getSelectedItem();
+                 txtCat = findViewById(R.id.reViewSpin);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         //data = (String)findViewById(R.id.editDataCadastro);
-
-//        spinnerCadastro = findViewById(R.id.spinnerCadastro);
-//        editTextValor = (EditText) findViewById(R.id.editValorCadastro);
-        viewData = findViewById(R.id.dataSelecio);
-//
-        btn_Criar_Cadastro = (Button) findViewById(R.id.btnCriarCadastro);
-
-        cateDAO = new CateDAO(getApplicationContext());
-        opDAO = new CadastroopDAO(getApplicationContext());
-//
-//        listcat = cateDAO.getAllCategorias();
-        operacoes = opDAO.getAllOperacoes();
-
-//        ArrayAdapter categoriaAdapter = new ArrayAdapter(this,R.layout.activity_select_cate,listcat);
-//        spinnerCadastro.setAdapter(categoriaAdapter);
-//        spinnerCadastro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-//
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                categoria = (Categoria) adapterView.getSelectedItem();
-//                textViewSpinner = findViewById(R.id.categoria);
-//                if(categoria.getCat_id()==1){
-//                    textViewSpinner.setTextColor(Color.parseColor("#ff0000"));
-//                }else{
-//                    textViewSpinner.setTextColor(Color.parseColor("#00ff00"));
-//                }
-//                Toast.makeText(Cadastro.this,"Selecionado: "+ categoria,Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-
 
 //        btn_data.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -125,74 +100,43 @@ public class Cadastro extends AppCompatActivity implements DatePickerDialog.OnDa
 //            }
 //        });
 
-//        btn_Criar_Cadastro.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(data==null){
-//                    Toast.makeText(Cadastro.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
-//                    return ;
-//                }
-//                if(editTextValor.getText().toString().length()==0){
-//                    Toast.makeText(Cadastro.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
-//                    return ;
-//                }
-//                if(categoria==null){
-//                    Toast.makeText(Cadastro.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
-//                    return ;
-//                }
-//                Date date;
-//                try{
-//                    date = Formatacao.stringToDate(data);
-//                }catch (Exception e){
-//                    Toast.makeText(Cadastro.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
-//                    return ;
-//                }
-//                Operacao op = new Operacao();
-//                op.setData(date);
-//                op.setValor(Double.parseDouble(editTextValor.getText().toString()));
-//                op.setCate(categoria);
-//                opDAO.insertOperacao(op);
-//                Toast.makeText(Cadastro.this,"Operação cadastrada. ",Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        btn_Criar_Cadastro.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if(categoria ==null){
+                    Toast.makeText(Cadastro.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
+                    return ;
+                }else
+                    if(editTextValor.getText().toString().length()==0){
+                    Toast.makeText(Cadastro.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
+                    return ;
+                }else if(data==null){
+                    Toast.makeText(Cadastro.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+                Date date;
+                try{
+                    date = Formatacao.stringToDate(data);
+                }catch (Exception e){
+                    Toast.makeText(Cadastro.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+                Operacao op = new Operacao();
+                CadastroUser us = new CadastroUser();
+                op.setData(date);
+                op.setValor(Double.parseDouble(editTextValor.getText().toString()));
+                op.setCate(categoria);
+                opDAO.insertOp(op,us);
+                Toast.makeText(Cadastro.this,"Operação cadastrada. ",Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
-//    public void selecionarCadastro(View view) {
-//        Intent intent = new Intent(this, OperacaoFinanceira.class);
-//        startActivity(intent);
-//    }
-//
-//    public void cadastrar(View view) throws ParseException {
-//        if(data==null){
-//            Toast.makeText(Cadastro.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
-//            return ;
-//        }
-//        if(editTextValor.getText().toString().length()==0){
-//            Toast.makeText(Cadastro.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
-//            return ;
-//        }
-//        if(categoria==null){
-//            Toast.makeText(Cadastro.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
-//            return ;
-//        }
-//        Date date;
-//        try{
-//            date = Formatacao.stringToDate(data);
-//        }catch (Exception e){
-//            Toast.makeText(Cadastro.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
-//            return ;
-//        }
-//        Operacao op = new Operacao();
-//        CadastroUser us = new CadastroUser();
-//        op.setData(date);
-//        op.setValor(Double.parseDouble(editTextValor.getText().toString()));
-//        op.setCate(categoria);
-//        us.getId();
-//        opDAO.insertOp(op,us);
-//        Toast.makeText(Cadastro.this,"Operação cadastrada. ",Toast.LENGTH_SHORT).show();
-//    }
+    public void Criar(View v) throws ParseException{
 
+    }
 
     public void datePicker(View view){
         DatePickerDialog datePickerDialog = new DatePickerDialog(

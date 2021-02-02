@@ -1,23 +1,19 @@
 package com.example.finapp.DAO;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import com.example.finapp.Model.Categoria;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static int version = 7;
+    private static int version = 8;
     private static String name = "Usuario.db";
 
     public static String Table_Categoria = "Categoria";
@@ -38,23 +34,23 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String str_cat = "CREATE TABLE IF NOT EXISTS " + Table_Categoria + "(" +
                 " id_c integer primary key autoincrement, " +
-                " descricao varchar(50) , " +
-                " cat_id integer " +
+                " descricao varchar(50) NOT NULL, " +
+                " cat_id boolean NOT NULL" +
                 "); ";
 
-        String str_op = "CREATE TABLE IF NOT EXISTS Operacao("  +
+        String str_op = "CREATE TABLE IF NOT EXISTS " + Table_Operacao +"("  +
                             " id_op integer primary key autoincrement, " +
-                            " valor double, " +
-                            " data int, " +
-                            " categoria integer, " +
-                            " user_id integer, " +
+                            " valor double NOT NULL, " +
+                            " data int NOT NULL, " +
+                            " categoria integer NOT NULL, " +
+                            " user_id integer NOT NULL, " +
                             " foreign key (categoria) references Categoria(id_c), " +
                             " foreign key (user_id) references Usuario(id)" +
                             "); ";
 
         String str_insert_cat = "INSERT INTO Categoria(descricao,cat_id) " +
                                 "VALUES ('Educação', 1),('Lazer', 1),('Moradia', 1),('Saúde', 1),('Outros', 1)," +
-                                        "('Salário', 2), ('Transferências', 2);";
+                                        "('Salário', 0), ('Transferências', 0);";
         String str_insert_op = "INSERT INTO Operacao(valor,data,categoria,user_id) " +
                                 "VALUES (250.00, 11122002,1,1);";
         try{
@@ -115,19 +111,26 @@ public class DBHelper extends SQLiteOpenHelper {
 //        }
 //    }
 
-    public ArrayList<String> getAllCat() {
-        ArrayList<String> list = new ArrayList<String>();
+    public List<Categoria> getAllCat() {
+        List<Categoria> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         db.beginTransaction();
         try {
             String str_select_cat = "Select * FROM " + Table_Categoria;
-            Cursor cursor = db.rawQuery(str_select_cat, null);
-            if (cursor.getCount() > 0) {
+            Cursor cursor = db.query(Table_Categoria, new String[]{"id","descricao","cat_id"},
+                    null, null, null, null,"cat_id, descricao");
+//            if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
+                    Categoria cat = new Categoria();
+                    long idCat = cursor.getLong(cursor.getColumnIndex("id"));
                     String descCat = cursor.getString(cursor.getColumnIndex("descricao"));
-                    list.add(descCat);
+                    int cat_id = cursor.getInt(cursor.getColumnIndex("cat_id"));
+                    cat.setId(idCat);
+                    cat.setDescricao(descCat);
+                    cat.setCat_id(cat_id);
+                    list.add(cat);
                 }
-            }
+//            }
             db.setTransactionSuccessful();
         } catch (Exception e) {
             e.printStackTrace();
@@ -135,6 +138,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.endTransaction();
             db.close();
         }
+
         return list;
     }
 }
