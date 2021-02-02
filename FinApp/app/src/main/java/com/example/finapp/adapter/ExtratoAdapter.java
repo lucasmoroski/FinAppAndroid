@@ -45,7 +45,7 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.MyViewHo
         holder.data.setText(Formatador.dateToString(operacao.getData()));
         if(operacao.getCategoria().isDebito()==1){
             holder.valor.setText("- " + Formatador.formatValor(operacao.getValor()));
-            holder.valor.setTextColor(Color.parseColor("#f15757"));
+            holder.valor.setTextColor(Color.parseColor("#000000"));
         }else{
             holder.valor.setText("+ " + Formatador.formatValor(operacao.getValor()));
             holder.valor.setTextColor(Color.parseColor("#52bf52"));

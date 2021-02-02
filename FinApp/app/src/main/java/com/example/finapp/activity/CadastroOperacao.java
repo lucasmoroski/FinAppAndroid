@@ -69,10 +69,10 @@ public class CadastroOperacao extends AppCompatActivity implements DatePickerDia
 
     public void cadastrar(View view) throws ParseException {
         if(data == null){
-            Toast.makeText(CadastroOperacao.this,"Selecione uma data. ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(CadastroOperacao.this,"Insira uma data. ",Toast.LENGTH_SHORT).show();
             return ;
         }else if(editTextValor.getText().toString().length() == 0){
-            Toast.makeText(CadastroOperacao.this,"Selecione um valor. ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(CadastroOperacao.this,"Insira um valor. ",Toast.LENGTH_SHORT).show();
             return ;
         }else if(categoria == null){
             Toast.makeText(CadastroOperacao.this,"Selecione uma categoria. ",Toast.LENGTH_SHORT).show();
@@ -82,7 +82,7 @@ public class CadastroOperacao extends AppCompatActivity implements DatePickerDia
         try{
             date = Formatador.stringToDate(data);
         }catch (Exception e){
-            Toast.makeText(CadastroOperacao.this,"Selecione uma data válida. ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(CadastroOperacao.this,"Insira uma data válida. ",Toast.LENGTH_SHORT).show();
             return ;
         }
         Operacao op = new Operacao();
@@ -94,6 +94,7 @@ public class CadastroOperacao extends AppCompatActivity implements DatePickerDia
         if(teste == true) {
             Intent intent = new Intent(CadastroOperacao.this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 

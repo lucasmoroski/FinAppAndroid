@@ -118,11 +118,12 @@ public class Search extends AppCompatActivity {
             dtIni = Formatador.stringToDate(dtInicio);
             dtF = Formatador.stringToDate(dtFim);
             if(dtF.getTime() < dtIni.getTime()) {
+                Toast.makeText(Search.this,"Selecione A data Final maior que a de Inicio. ",Toast.LENGTH_SHORT).show();
+            }else{
                 operacoes = operacaoDAO.pesquisar(dtIni, dtF, categoria);
                 Intent i = new Intent(this, ResultSearch.class);
                 startActivity(i);
-            }else{
-                Toast.makeText(Search.this,"Selecione A data Final maior que a de Inicio. ",Toast.LENGTH_SHORT).show();
+                finish();
             }
 
         }catch (Exception e){
